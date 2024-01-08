@@ -37,9 +37,6 @@ app.title = "Sales Report Engine SRE"
 server = app.server
 app.config["suppress_callback_exceptions"] = True
 
-# APP_PATH = str(pathlib.Path(__file__).parent.resolve())
-# Abuja_branch_dataset = pd.read_csv(os.path.join(APP_PATH, os.path.join("data", "Abuja_branch_dataset.csv")))
-
 
 # Create Data Pipeline
 
@@ -175,10 +172,8 @@ try:
 except Exception as e:
     print("Error occurred while loading data:", str(e))
 
-df = df[['PARTNER NAME','COUNTRY','WEEK','DEPARTMENT','ITEM CODE(16 DIGITS)','CLASSNAME','SEASON',
-        'STYLE NAME','COLOUR NAME','DESCRIPTION','ORIGINAL RRP','SALES VALUE LAST WEEK LOCAL',
-        'SALES UNITS LAST WEEK','STORE STOCK UNITS']]
 
+df = df.iloc[:, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]]
 
 Revenue = df['ORIGINAL RRP'].sum().round(2)
 TR = 'Revenue  '
