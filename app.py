@@ -168,7 +168,7 @@ try:
     # Use the read_sql() function with the SQL query to load data into a DataFrame
     # Adjust chunksize as needed; it specifies the number of rows fetched at a time
     chunksize = 10000  # Experiment with different values for optimal performance
-    df_chunks = pd.read_sql(query, con=engine, chunksize=chunksize)
+    df_chunks = pd.read_sql(query, con=sql_connection , chunksize=chunksize)
     
     # Initialize an empty DataFrame to concatenate chunks
     df = pd.concat(df_chunks)
