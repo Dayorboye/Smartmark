@@ -2,8 +2,8 @@ import os
 import pathlib
 
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc
+from dash import html
 from dash.dependencies import Input, Output, State
 import dash_table
 import plotly.graph_objs as go
@@ -173,7 +173,14 @@ except Exception as e:
     print("Error occurred while loading data:", str(e))
 
 
-df = df.iloc[:, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]]
+# Assuming the columns are named as in your previous example
+columns_to_select = ['PARTNER NAME','COUNTRY','WEEK','DEPARTMENT','ITEM CODE(16 DIGITS)',
+                     'CLASSNAME','SEASON','STYLE NAME','COLOUR NAME','DESCRIPTION',
+                     'ORIGINAL RRP','SALES VALUE LAST WEEK LOCAL','SALES UNITS LAST WEEK',
+                     'STORE STOCK UNITS']
+
+# Create a new DataFrame with selected columns using .loc[]
+df = df.loc[:, columns_to_select]
 
 Revenue = df['ORIGINAL RRP'].sum().round(2)
 TR = 'Revenue  '
