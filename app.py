@@ -159,10 +159,16 @@ load_to_sql(transformed_data, output_file)
 query = "SELECT * FROM extracted_tables"
 
 # Use the read_sql() function with the SQL query to load data into a DataFrame
+# Use the read_sql() function with the SQL query to load data into a DataFrame
 try:
+    # Optimize loading by using a SQL query instead of directly loading the entire table
+    # Modify the query as per your requirements to load specific columns or apply filters
+    query = "SELECT * FROM extracted_tables"
+
+    # Use the read_sql() function with the SQL query to load data into a DataFrame
     # Adjust chunksize as needed; it specifies the number of rows fetched at a time
     chunksize = 10000  # Experiment with different values for optimal performance
-    df_chunks = pd.read_sql(query, con=sql_connection, chunksize=chunksize)
+    df_chunks = pd.read_sql(query, con=engine, chunksize=chunksize)
     
     # Initialize an empty DataFrame to concatenate chunks
     df = pd.concat(df_chunks)
@@ -171,6 +177,10 @@ try:
     print("Data loaded successfully.")
 except Exception as e:
     print("Error occurred while loading data:", str(e))
+    df = pd.DataFrame()  # Define an empty DataFrame to handle the case of failure to load data
+
+# Display the DataFrame directly in the cell output
+df = df
 
 
 # Assuming the columns are named as in your previous example
